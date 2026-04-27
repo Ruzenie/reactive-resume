@@ -117,6 +117,32 @@
   }
 }
 
+.tiptap_inline_content {
+  display: inline;
+
+  :where(p, h1, h2, h3, h4, h5, h6, div) {
+    display: inline;
+    margin: 0;
+  }
+
+  :where(p, h1, h2, h3, h4, h5, h6, div):not(:last-child)::after,
+  :where(li):not(:last-child)::after {
+    content: " ";
+  }
+
+  :where(ul, ol, li) {
+    display: inline;
+    margin: 0;
+    list-style: none;
+  }
+
+  :where(table, thead, tbody, tr, th, td) {
+    display: inline;
+    padding: 0;
+    border: 0;
+  }
+}
+
 .editor_content {
   font-family: var(--page-body-font-family);
   font-size: calc(var(--page-body-font-size) * 1pt);
@@ -174,6 +200,12 @@
     font-weight: var(--page-body-font-weight-bold, bold);
     text-decoration: underline;
     text-underline-offset: 0.15rem;
+  }
+}
+
+.inline_editor_content {
+  :where(p, h1, h2, h3, h4, h5, h6) {
+    margin: 0;
   }
 }
 

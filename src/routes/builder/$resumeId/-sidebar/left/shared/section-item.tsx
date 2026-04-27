@@ -47,6 +47,7 @@ import {
   getSourceSectionTitle,
   removeItemFromSource,
 } from "@/utils/resume/move-item";
+import { stripHtml } from "@/utils/string";
 import { cn } from "@/utils/style";
 
 // ============================================================================
@@ -180,6 +181,8 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
   const controls = useDragControls();
   const { openDialog } = useDialogStore();
   const updateResumeData = useResumeStore((state) => state.updateResumeData);
+  const displayTitle = stripHtml(title);
+  const displaySubtitle = stripHtml(subtitle);
 
   const onToggleVisibility = () => {
     updateResumeData((draft) => {
@@ -271,8 +274,8 @@ export function SectionItem<T extends CustomSectionItem | SectionItemType>({
           item.hidden && "opacity-50",
         )}
       >
-        <div className="line-clamp-1 font-medium">{title}</div>
-        {subtitle && <div className="line-clamp-1 text-xs text-muted-foreground">{subtitle}</div>}
+        <div className="line-clamp-1 font-medium">{displayTitle}</div>
+        {displaySubtitle && <div className="line-clamp-1 text-xs text-muted-foreground">{displaySubtitle}</div>}
       </button>
 
       <DropdownMenu>

@@ -1,3 +1,4 @@
+import { TiptapInlineContent } from "@/components/input/rich-content";
 import { cn } from "@/utils/style";
 
 type LinkedTitleProps = {
@@ -11,10 +12,16 @@ export function LinkedTitle({ title, website, showLinkInTitle, className }: Link
   if (showLinkInTitle && website?.url) {
     return (
       <a href={website.url} target="_blank" rel="noopener" className={cn("inline", className)}>
-        <strong>{title}</strong>
+        <strong>
+          <TiptapInlineContent content={title} />
+        </strong>
       </a>
     );
   }
 
-  return <strong className={className}>{title}</strong>;
+  return (
+    <strong className={className}>
+      <TiptapInlineContent content={title} />
+    </strong>
+  );
 }

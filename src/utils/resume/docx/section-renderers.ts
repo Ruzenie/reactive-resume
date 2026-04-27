@@ -2,6 +2,8 @@ import { BorderStyle, ExternalHyperlink, HeadingLevel, Paragraph, TabStopPositio
 
 import type { CustomSection, CustomSectionType, ResumeData, SectionType } from "@/schema/resume/data";
 
+import { stripHtml } from "@/utils/string";
+
 import { type HtmlStyleConfig, htmlToParagraphs } from "./html-to-docx";
 import { toSafeDocxLink } from "./link-utils";
 
@@ -71,19 +73,22 @@ function sectionHeading(title: string, colorHex: string): Paragraph {
 }
 
 function titleAndSubtitle(primary: string, secondary: string, rightText?: string): Paragraph {
+  const plainPrimary = stripHtml(primary);
+  const plainSecondary = stripHtml(secondary);
+  const plainRightText = stripHtml(rightText);
   const baseRun = {
     ...(bodyFont ? { font: bodyFont } : {}),
     ...(bodySize ? { size: bodySize } : {}),
     ...(textColor ? { color: textColor } : {}),
   };
-  const children: (TextRun | ExternalHyperlink)[] = [new TextRun({ text: primary, bold: true, ...baseRun })];
+  const children: (TextRun | ExternalHyperlink)[] = [new TextRun({ text: plainPrimary, bold: true, ...baseRun })];
 
-  if (secondary) {
-    children.push(new TextRun({ text: ` — ${secondary}`, ...baseRun }));
+  if (plainSecondary) {
+    children.push(new TextRun({ text: ` — ${plainSecondary}`, ...baseRun }));
   }
 
-  if (rightText) {
-    children.push(new TextRun({ text: `\t${rightText}`, italics: true, ...baseRun }));
+  if (plainRightText) {
+    children.push(new TextRun({ text: `\t${plainRightText}`, italics: true, ...baseRun }));
   }
 
   return new Paragraph({

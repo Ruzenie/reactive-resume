@@ -11,6 +11,7 @@ import type { DialogProps } from "@/dialogs/store";
 import type { RoleItem } from "@/schema/resume/data";
 
 import { RichInput } from "@/components/input/rich-input";
+import { TitleInput } from "@/components/input/title-input";
 import { URLInput } from "@/components/input/url-input";
 import { useResumeStore } from "@/components/resume/store/resume";
 import { Button } from "@/components/ui/button";
@@ -256,7 +257,7 @@ function ExperienceForm() {
             <FormLabel>
               <Trans>Company</Trans>
             </FormLabel>
-            <FormControl render={<Input {...field} />} />
+            <FormControl render={<TitleInput {...field} value={field.value} onChange={field.onChange} />} />
             <FormMessage />
           </FormItem>
         )}
